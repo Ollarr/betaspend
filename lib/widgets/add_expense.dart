@@ -18,6 +18,8 @@ class _NewExpenseState extends State<NewExpense> {
 
   DateTime? _selectedDate;
 
+  Category _selectedCategory = Category.work;
+
   void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month - 1, now.day);
@@ -96,24 +98,39 @@ class _NewExpenseState extends State<NewExpense> {
           Row(
             children: [
               DropdownButton(
-                items: Category.values
-                    .map((category) => DropdownMenuItem(
-                          //N/B: We have access to the enum Category here because we have imported
-                          //the file that contains it at the top of this file which gives us access to it
-                          // The values property and name property (on the individual category)
-                          //are provided by dart in order to be able to access the  enum individual values
-                          //and the map result itself needs a toList function because DropDownButton expects a list.
-                          child: Text(
-                            category.name.toUpperCase(),
-                          ),
-                        ))
-                    .toList(),
-              ),
+                  value: _selectedCategory,
+                  items: Category.values
+                      .map((category) => DropdownMenuItem(
+                            // The value arg is to used to store whatever the user selects from the dropdown
+                            value: category,
+
+                            //N/B: We have access to the enum Category here because we have imported
+                            //the file that contains it at the top of this file which gives us access to it
+                            // The values property and name property (on the individual category)
+                            //are provided by dart in order to be able to access the  enum individual values
+                            //and the map result itself needs a toList function because DropDownButton expects a list.
+                            child: Text(
+                              category.name.toUpperCase(),
+                            ),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value == null) {
+                        return;
+                      }
+                      _selectedCategory = value;
+                    });
+                  }),
+              const Spacer(),
               ElevatedButton(
                   onPressed: () {
                     print(_titleController.text);
                   },
-                  child: const Text("Save Expense")),
+                  child: const Text(
+                    "Save Expense",
+                    style: TextStyle(fontSize: 12),
+                  )),
               const SizedBox(
                 width: 12,
               ),
@@ -121,7 +138,10 @@ class _NewExpenseState extends State<NewExpense> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Cancel"))
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(fontSize: 12),
+                  ))
             ],
           ),
         ],

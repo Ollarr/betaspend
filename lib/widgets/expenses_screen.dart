@@ -1,5 +1,6 @@
 // ignore_for_file: unused_field
 
+import 'package:betaspend/widgets/add_expense.dart';
 import 'package:betaspend/widgets/expenses_list/expenses_list.dart';
 import 'package:betaspend/models/expense.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class _ExpensesState extends State<Expenses> {
     showModalBottomSheet(
         context: context,
         builder: (ctx) {
-          return const Text('Modal');
+          return const NewExpense();
         });
   }
 

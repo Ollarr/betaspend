@@ -80,6 +80,8 @@ class _NewExpenseState extends State<NewExpense> {
                   children: [
                     Text(_selectedDate == null
                         ? "Select date"
+                        //We can use the format method here because importing
+                        //at the top of this file gives us access to the method
                         // N/B: exclamation is used here to force Dart to accept
                         //_selectedDate has a value that can not be null.
                         : formatter.format(_selectedDate!)),
@@ -93,6 +95,20 @@ class _NewExpenseState extends State<NewExpense> {
           ),
           Row(
             children: [
+              DropdownButton(
+                items: Category.values
+                    .map((category) => DropdownMenuItem(
+                          //N/B: We have access to the enum Category here because we have imported
+                          //the file that contains it at the top of this file which gives us access to it
+                          // The values property and name property (on the individual category)
+                          //are provided by dart in order to be able to access the  enum individual values
+                          //and the map result itself needs a toList function because DropDownButton expects a list.
+                          child: Text(
+                            category.name.toUpperCase(),
+                          ),
+                        ))
+                    .toList(),
+              ),
               ElevatedButton(
                   onPressed: () {
                     print(_titleController.text);

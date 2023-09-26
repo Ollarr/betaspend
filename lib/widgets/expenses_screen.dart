@@ -43,10 +43,19 @@ class _ExpensesState extends State<Expenses> {
     //Note: when a widget extends a state widget,
     //flutter automatically adds a context property to such widget class
     showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (ctx) {
-          return const NewExpense();
+          return NewExpense(
+            onAddExpense: _addExpense,
+          );
         });
+  }
+
+  void _addExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
   }
 
   @override

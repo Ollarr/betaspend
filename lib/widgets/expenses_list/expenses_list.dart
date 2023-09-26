@@ -15,7 +15,11 @@ class ExpensesList extends StatelessWidget {
     //are not yet visible, as a result of that we are using ListView.builder instead
     //as this create the a list of items only when they are needed to be rendered/visible
     return ListView.builder(
-        itemCount: expenses.length,
-        itemBuilder: (ctx, index) => ExpenseItem(expenses[index]));
+      itemCount: expenses.length,
+      itemBuilder: (ctx, index) => Dismissible(
+        key: ValueKey(expenses[index]),
+        child: ExpenseItem(expenses[index]),
+      ),
+    );
   }
 }

@@ -35,6 +35,32 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _handleSubmitExpenseData() {
+    final enteredAmount = double.tryParse(_amountController.text);
+    final isEnteredAmountInvalid = enteredAmount == null || enteredAmount <= 0;
+    if (_titleController.text.trim().isEmpty ||
+        isEnteredAmountInvalid ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text("Invalid input"),
+          content: const Text(
+              "Please make sure you have entered a valid title, amount, date and category"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text("okay"),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+  }
+
 // N/B:dispose method like initState and build method is part of
 //a StatefulWidget's lifecycle. it's called automatically by Flutter
 //when the widget and its state are about to be destroyed(i.e removed from the UI)
@@ -115,18 +141,16 @@ class _NewExpenseState extends State<NewExpense> {
                           ))
                       .toList(),
                   onChanged: (value) {
+                    if (value == null) {
+                      return;
+                    }
                     setState(() {
-                      if (value == null) {
-                        return;
-                      }
                       _selectedCategory = value;
                     });
                   }),
               const Spacer(),
               ElevatedButton(
-                  onPressed: () {
-                    print(_titleController.text);
-                  },
+                  onPressed: _handleSubmitExpenseData,
                   child: const Text(
                     "Save Expense",
                     style: TextStyle(fontSize: 12),

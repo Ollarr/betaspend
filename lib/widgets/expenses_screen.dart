@@ -58,6 +58,12 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+  }
+
   @override
   Widget build(context) {
     return Scaffold(
@@ -78,7 +84,8 @@ class _ExpensesState extends State<Expenses> {
           // The reason for wrapping the ExpensesList inside the Expanded widget is
           //because column expected a list but then it's gettin a list that contains another list
           Expanded(
-            child: ExpensesList(expenses: _registeredExpenses),
+            child: ExpensesList(
+                expenses: _registeredExpenses, onRemoveExpense: _removeExpense),
           ),
         ],
       ),

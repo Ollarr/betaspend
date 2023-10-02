@@ -3,6 +3,7 @@
 import 'package:betaspend/widgets/add_expense.dart';
 import 'package:betaspend/widgets/expenses_list/expenses_list.dart';
 import 'package:betaspend/models/expense.dart';
+import 'package:betaspend/widgets/chart/chart.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 
@@ -102,7 +103,9 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(
         children: [
-          const Text('The Chart'),
+          Chart(
+            expenses: _registeredExpenses,
+          ),
           // The reason for wrapping the ExpensesList inside the Expanded widget is
           //because column expected a list but then it's gettin a list that contains another list
           Expanded(

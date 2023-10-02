@@ -41,3 +41,30 @@ class Expense {
     return formatter.format(date);
   }
 }
+
+// A new data model to some up all the expense(amount) for every category
+// of expenses and display in the chart
+class ExpenseBucket {
+  const ExpenseBucket({required this.category, required this.expenses});
+
+// This is an custom alternative named contructor function to filter out expenses
+//that belongs to a specific category. The colon is used to initialize the expenses
+// and then filter the expenses based on category.
+
+  ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
+      : expenses = allExpenses
+            .where((expense) => expense.category == category)
+            .toList();
+
+  final Category category;
+  final List<Expense> expenses;
+
+// This is utility  function/method that iterates over all expenses and returns the sum of all expenses in each category
+  double get totalExpenses {
+    double sum = 0;
+    for (final expense in expenses) {
+      sum = sum + expense.amount;
+    }
+    return sum;
+  }
+}

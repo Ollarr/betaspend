@@ -44,6 +44,7 @@ class _ExpensesState extends State<Expenses> {
     //Note: when a widget extends a state widget,
     //flutter automatically adds a context property to such widget class
     showModalBottomSheet(
+        useSafeArea: true,
         isScrollControlled: true,
         context: context,
         builder: (ctx) {
@@ -83,7 +84,16 @@ class _ExpensesState extends State<Expenses> {
   Widget build(BuildContext context) {
     //This is used to get the width of the screen size and will be
     //used to conditionally render the UI based on the orientation(portrait or landscape)
-    // N/B: Widgets get sized based on their size preferences & parent widget size constraints e.g the Column widgets height preference: takes as much as possible and it is important that is placed within a parent widget that restricts its height otherwise it will go outside of the screen boundary that's why it is wrapped within the scaffold widget most of the times because the scaffold widget by default constrains the height and width of whatever is placed within it to the maximum device height and width andthe contraints of the parent's widget overrides that of the child/children preferences  while width preference: takes as much as needed/defined by its children and so when we are sometimes confronted with issues like this wheremwe need to wrap an uncontrained widget within an unconstrained widget we used the Expanded widget because it helps to set height and width contraints
+    // N/B: Widgets get sized based on their size preferences & parent widget size constraints
+    // e.g the Column widgets height preference: takes as much as possible and it is important
+    //that it is placed within a parent widget that restricts its height otherwise it will go
+    //outside of the screen boundary that's why it is wrapped within the scaffold widget most of
+    // the times because the scaffold widget by default constrains the height and width of whatever
+    // is placed within it to the maximum device height and width andthe contraints of the parent's
+    // widget overrides that of the child/children preferences  while width preference: takes as much
+    // as needed/defined by its children and so when we are sometimes confronted with issues like this
+    //wheremwe need to wrap an uncontrained widget within an unconstrained widget we used the Expanded
+    // widget because it helps to set height and width contraints
     final width = MediaQuery.of(context).size.width;
 
     Widget mainContent = const Center(

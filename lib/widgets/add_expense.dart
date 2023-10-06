@@ -81,102 +81,109 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
-      child: Column(
-        children: [
-          TextField(
-            // onChanged: _saveTitleInput,
-            controller: _titleController,
-            maxLength: 50,
-            decoration: const InputDecoration(
-              label: Text('Title'),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  // onChanged: _saveTitleInput,
-                  controller: _amountController,
-                  maxLength: 16,
-                  decoration: const InputDecoration(
-                      label: Text('Amount'), prefixText: "\$ "),
-                ),
-              ),
-              // const SizedBox(
-              //   width: 16,
-              // ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(_selectedDate == null
-                        ? "Select date"
-                        //We can use the format method here because importing
-                        //at the top of this file gives us access to the method
-                        // N/B: exclamation is used here to force Dart to accept
-                        //_selectedDate has a value that can not be null.
-                        : formatter.format(_selectedDate!)),
-                    IconButton(
-                        onPressed: _presentDatePicker,
-                        icon: const Icon(Icons.calendar_month))
-                  ],
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              DropdownButton(
-                  value: _selectedCategory,
-                  items: Category.values
-                      .map((category) => DropdownMenuItem(
-                            // The value arg is to used to store whatever the user selects from the dropdown
-                            value: category,
+    final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
 
-                            //N/B: We have access to the enum Category here because we have imported
-                            //the file that contains it at the top of this file which gives us access to it
-                            // The values property and name property (on the individual category)
-                            //are provided by dart in order to be able to access the  enum individual values
-                            //and the map result itself needs a toList function because DropDownButton expects a list.
-                            child: Text(
-                              category.name.toUpperCase(),
-                            ),
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    if (value == null) {
-                      return;
-                    }
-                    setState(() {
-                      _selectedCategory = value;
-                    });
-                  }),
-              const Spacer(),
-              ElevatedButton(
-                  onPressed: _handleSubmitExpenseData,
-                  child: const Text(
-                    "Save Expense",
-                    style: TextStyle(fontSize: 12),
-                  )),
-              const SizedBox(
-                width: 12,
+    return SizedBox(
+      height: double.infinity,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
+          child: Column(
+            children: [
+              TextField(
+                // onChanged: _saveTitleInput,
+                controller: _titleController,
+                maxLength: 50,
+                decoration: const InputDecoration(
+                  label: Text('Title'),
+                ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    "Cancel",
-                    style: TextStyle(fontSize: 12),
-                  ))
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      // onChanged: _saveTitleInput,
+                      controller: _amountController,
+                      maxLength: 16,
+                      decoration: const InputDecoration(
+                          label: Text('Amount'), prefixText: "\$ "),
+                    ),
+                  ),
+                  // const SizedBox(
+                  //   width: 16,
+                  // ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(_selectedDate == null
+                            ? "Select date"
+                            //We can use the format method here because importing
+                            //at the top of this file gives us access to the method
+                            // N/B: exclamation is used here to force Dart to accept
+                            //_selectedDate has a value that can not be null.
+                            : formatter.format(_selectedDate!)),
+                        IconButton(
+                            onPressed: _presentDatePicker,
+                            icon: const Icon(Icons.calendar_month))
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  DropdownButton(
+                      value: _selectedCategory,
+                      items: Category.values
+                          .map((category) => DropdownMenuItem(
+                                // The value arg is to used to store whatever the user selects from the dropdown
+                                value: category,
+
+                                //N/B: We have access to the enum Category here because we have imported
+                                //the file that contains it at the top of this file which gives us access to it
+                                // The values property and name property (on the individual category)
+                                //are provided by dart in order to be able to access the  enum individual values
+                                //and the map result itself needs a toList function because DropDownButton expects a list.
+                                child: Text(
+                                  category.name.toUpperCase(),
+                                ),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        if (value == null) {
+                          return;
+                        }
+                        setState(() {
+                          _selectedCategory = value;
+                        });
+                      }),
+                  const Spacer(),
+                  ElevatedButton(
+                      onPressed: _handleSubmitExpenseData,
+                      child: const Text(
+                        "Save Expense",
+                        style: TextStyle(fontSize: 12),
+                      )),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        "Cancel",
+                        style: TextStyle(fontSize: 12),
+                      ))
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

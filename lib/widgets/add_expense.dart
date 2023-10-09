@@ -86,38 +86,7 @@ class _NewExpenseState extends State<NewExpense> {
         isEnteredAmountInvalid ||
         _selectedDate == null) {
       _showDialogue();
-      // showCupertinoDialog(
-      //     context: context,
-      //     builder: (ctx) => CupertinoAlertDialog(
-      //           title: const Text("Invalid input"),
-      //           content: const Text(
-      //               "Please make sure you have entered a valid title, amount, date and category"),
-      //           actions: [
-      //             TextButton(
-      //               onPressed: () {
-      //                 Navigator.pop(ctx);
-      //               },
-      //               child: const Text("okay"),
-      //             ),
-      //           ],
-      //         ));
 
-      // showDialog(
-      //   context: context,
-      //   builder: (ctx) => AlertDialog(
-      //     title: const Text("Invalid input"),
-      //     content: const Text(
-      //         "Please make sure you have entered a valid title, amount, date and category"),
-      //     actions: [
-      //       TextButton(
-      //         onPressed: () {
-      //           Navigator.pop(ctx);
-      //         },
-      //         child: const Text("okay"),
-      //       ),
-      //     ],
-      //   ),
-      // );
       return;
     }
     widget.onAddExpense(Expense(
